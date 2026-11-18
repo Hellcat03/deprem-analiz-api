@@ -10,7 +10,7 @@ public record Yapi(string Ad, string Konum, string? BetonSinifi, int? YapimYili,
 public record Inceleme(string Durum, string[] BildirilmeyenBelgeler, string Dayanak);
 public static class YapiInceleme
 {
-    public static readonly string[] Belgeler = ["Taşıyıcı sistem rölevesi","Donatı tespiti","Malzeme deneyleri","Zemin etüdü","Yük bilgileri","Hasar ve tadilat kayıtları"];
+    public static readonly string[] Belgeler = ["Taşıyıcı sistem rölevesi", "Donatı tespiti", "Malzeme deneyleri", "Zemin etüdü", "Yük bilgileri", "Hasar ve tadilat kayıtları"];
     public static Inceleme Incele(Yapi y)
     {
         var eksik = Belgeler.Except(y.Belgeler).ToArray();

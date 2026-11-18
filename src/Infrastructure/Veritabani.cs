@@ -21,11 +21,11 @@ public sealed class DepremSatiri
     public DateTimeOffset OlusZamani { get; set; }
     public void Ata(Olay o)
     {
-        Saglayici=o.Saglayici.Trim(); KaynakKimligi=o.KaynakKimligi.Trim(); Buyukluk=o.Model.Buyukluk;
-        DerinlikKm=o.Model.DerinlikKm; Bolge=o.Model.Bolge; BuyuklukTuru=o.BuyuklukTuru;
-        Enlem=o.Enlem; Boylam=o.Boylam; Yer=o.Yer; OlusZamani=o.OlusZamani.ToUniversalTime();
+        Saglayici = o.Saglayici.Trim(); KaynakKimligi = o.KaynakKimligi.Trim(); Buyukluk = o.Model.Buyukluk;
+        DerinlikKm = o.Model.DerinlikKm; Bolge = o.Model.Bolge; BuyuklukTuru = o.BuyuklukTuru;
+        Enlem = o.Enlem; Boylam = o.Boylam; Yer = o.Yer; OlusZamani = o.OlusZamani.ToUniversalTime();
     }
-    public Kayit<Olay> Oku() => new(Id,Zaman,new(new(Buyukluk,DerinlikKm,Bolge),BuyuklukTuru,Enlem,Boylam,Yer,OlusZamani,Saglayici,KaynakKimligi));
+    public Kayit<Olay> Oku() => new(Id, Zaman, new(new(Buyukluk, DerinlikKm, Bolge), BuyuklukTuru, Enlem, Boylam, Yer, OlusZamani, Saglayici, KaynakKimligi));
 }
 
 public sealed class HesapSatiri
@@ -34,7 +34,7 @@ public sealed class HesapSatiri
     public Guid DepremId { get; set; }
     public DateTimeOffset Zaman { get; set; }
     public string SonucJson { get; set; } = "";
-    public Kayit<Hesap> Oku() => new(Id,Zaman,new(DepremId,JsonSerializer.Deserialize<Sonuc>(SonucJson)!));
+    public Kayit<Hesap> Oku() => new(Id, Zaman, new(DepremId, JsonSerializer.Deserialize<Sonuc>(SonucJson)!));
 }
 
 public sealed class UyariSatiri
@@ -46,7 +46,7 @@ public sealed class UyariSatiri
     public int Seviye { get; set; }
     public DateTimeOffset Zaman { get; set; }
     public DateTimeOffset? OnayZamani { get; set; }
-    public Kayit<Uyari> Oku() => new(Id,Zaman,new(DepremId,HesapId,Kural,Seviye,OnayZamani));
+    public Kayit<Uyari> Oku() => new(Id, Zaman, new(DepremId, HesapId, Kural, Seviye, OnayZamani));
 }
 
 public sealed class BinaSatiri
@@ -54,7 +54,7 @@ public sealed class BinaSatiri
     public Guid Id { get; set; }
     public DateTimeOffset Zaman { get; set; }
     public string Envanter { get; set; } = "";
-    public Kayit<Yapi> Oku() => new(Id,Zaman,JsonSerializer.Deserialize<Yapi>(Envanter)!);
+    public Kayit<Yapi> Oku() => new(Id, Zaman, JsonSerializer.Deserialize<Yapi>(Envanter)!);
 }
 public sealed class IncelemeSatiri
 {
@@ -62,7 +62,7 @@ public sealed class IncelemeSatiri
     public Guid BinaId { get; set; }
     public DateTimeOffset Zaman { get; set; }
     public string SonucJson { get; set; } = "";
-    public Kayit<Inceleme> Oku() => new(Id,Zaman,JsonSerializer.Deserialize<Inceleme>(SonucJson)!);
+    public Kayit<Inceleme> Oku() => new(Id, Zaman, JsonSerializer.Deserialize<Inceleme>(SonucJson)!);
 }
 public sealed class Iz
 {
@@ -80,22 +80,22 @@ public class Veritabani(DbContextOptions<Veritabani> options) : DbContext(option
     public DbSet<BinaSatiri> Binalar => Set<BinaSatiri>();
     public DbSet<IncelemeSatiri> Incelemeler => Set<IncelemeSatiri>();
     public DbSet<Iz> Izler => Set<Iz>();
-    public void Kaydet(Guid id,string eylem) => Izler.Add(new(){KayitId=id,Islem=eylem,Zaman=DateTimeOffset.UtcNow});
+    public void Kaydet(Guid id, string eylem) => Izler.Add(new() { KayitId = id, Islem = eylem, Zaman = DateTimeOffset.UtcNow });
     protected override void OnModelCreating(ModelBuilder b)
     {
-        var d=b.Entity<DepremSatiri>();
-        d.Property(x=>x.Saglayici).HasMaxLength(80);
-        d.Property(x=>x.KaynakKimligi).HasMaxLength(100);
-        d.HasIndex(x=>new{x.Saglayici,x.KaynakKimligi}).IsUnique();
-        d.HasIndex(x=>x.OlusZamani);
-        d.ToTable(t=>t.HasCheckConstraint("CK_Deprem_Girdi","[DerinlikKm] > 0 AND [DerinlikKm] <= 800 AND [Buyukluk] BETWEEN -2 AND 10 AND [Enlem] BETWEEN -90 AND 90 AND [Boylam] BETWEEN -180 AND 180"));
-        b.Entity<HesapSatiri>().HasOne<DepremSatiri>().WithMany().HasForeignKey(x=>x.DepremId);
-        b.Entity<HesapSatiri>().HasAlternateKey(x=>new{x.Id,x.DepremId});
-        var u=b.Entity<UyariSatiri>();
-        u.Property(x=>x.Kural).HasMaxLength(200);
-        u.HasOne<HesapSatiri>().WithMany().HasForeignKey(x=>new{x.HesapId,x.DepremId}).HasPrincipalKey(x=>new{x.Id,x.DepremId});
-        u.HasIndex(x=>new{x.DepremId,x.Kural}).IsUnique();
-        b.Entity<IncelemeSatiri>().HasOne<BinaSatiri>().WithMany().HasForeignKey(x=>x.BinaId);
-        b.Entity<Iz>().HasIndex(x=>x.KayitId);
+        var d = b.Entity<DepremSatiri>();
+        d.Property(x => x.Saglayici).HasMaxLength(80);
+        d.Property(x => x.KaynakKimligi).HasMaxLength(100);
+        d.HasIndex(x => new { x.Saglayici, x.KaynakKimligi }).IsUnique();
+        d.HasIndex(x => x.OlusZamani);
+        d.ToTable(t => t.HasCheckConstraint("CK_Deprem_Girdi", "[DerinlikKm] > 0 AND [DerinlikKm] <= 800 AND [Buyukluk] BETWEEN -2 AND 10 AND [Enlem] BETWEEN -90 AND 90 AND [Boylam] BETWEEN -180 AND 180"));
+        b.Entity<HesapSatiri>().HasOne<DepremSatiri>().WithMany().HasForeignKey(x => x.DepremId);
+        b.Entity<HesapSatiri>().HasAlternateKey(x => new { x.Id, x.DepremId });
+        var u = b.Entity<UyariSatiri>();
+        u.Property(x => x.Kural).HasMaxLength(200);
+        u.HasOne<HesapSatiri>().WithMany().HasForeignKey(x => new { x.HesapId, x.DepremId }).HasPrincipalKey(x => new { x.Id, x.DepremId });
+        u.HasIndex(x => new { x.DepremId, x.Kural }).IsUnique();
+        b.Entity<IncelemeSatiri>().HasOne<BinaSatiri>().WithMany().HasForeignKey(x => x.BinaId);
+        b.Entity<Iz>().HasIndex(x => x.KayitId);
     }
 }

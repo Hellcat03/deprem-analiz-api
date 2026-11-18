@@ -1,0 +1,1195 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Deprem Analiz API",
+    "description": "Akademik deneysel model. Korunan işlemler güvenilir sunucudan X-Yonetim-Anahtari başlığı ile çağrılır.",
+    "version": "v1"
+  },
+  "paths": {
+    "/saglik": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/binalar/belge-turleri": {
+      "get": {
+        "tags": [
+          "Binalar"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/binalar/{id}": {
+      "get": {
+        "tags": [
+          "Binalar"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/YapiKayit"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YapiKayit"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YapiKayit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/binalar": {
+      "post": {
+        "tags": [
+          "Binalar"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Yapi"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Yapi"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Yapi"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/YapiKayit"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YapiKayit"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YapiKayit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/binalar/{id}/degerlendirmeler": {
+      "post": {
+        "tags": [
+          "Binalar"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncelemeKayit"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncelemeKayit"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncelemeKayit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/binalar/{id}/degerlendirmeler/{incelemeId}": {
+      "get": {
+        "tags": [
+          "Binalar"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "incelemeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncelemeKayit"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncelemeKayit"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncelemeKayit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hesaplamalar/onizleme": {
+      "post": {
+        "tags": [
+          "Depremler"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Girdi"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Girdi"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Girdi"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sonuc"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sonuc"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sonuc"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bolgeler": {
+      "get": {
+        "tags": [
+          "Depremler"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bolgeler/{kod}/siniflar": {
+      "get": {
+        "tags": [
+          "Depremler"
+        ],
+        "parameters": [
+          {
+            "name": "kod",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Aralik"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Aralik"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Aralik"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/depremler": {
+      "get": {
+        "tags": [
+          "Depremler"
+        ],
+        "parameters": [
+          {
+            "name": "sayfa",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "adet",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 25
+            }
+          },
+          {
+            "name": "saglayici",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "artan",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OlayKayit"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OlayKayit"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OlayKayit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Depremler"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Olay"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Olay"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Olay"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Islem"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Islem"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Islem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/depremler/{id}": {
+      "get": {
+        "tags": [
+          "Depremler"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OlayKayit"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OlayKayit"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OlayKayit"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Depremler"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Olay"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Olay"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Olay"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Islem"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Islem"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Islem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hesaplamalar/{id}": {
+      "get": {
+        "tags": [
+          "Depremler"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/HesapKayit"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HesapKayit"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HesapKayit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/depremler/{id}/hesaplamalar": {
+      "get": {
+        "tags": [
+          "Depremler"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "sayfa",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "adet",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 25
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HesapKayit"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HesapKayit"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HesapKayit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/uyarilar": {
+      "get": {
+        "tags": [
+          "Depremler"
+        ],
+        "parameters": [
+          {
+            "name": "sayfa",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "adet",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 25
+            }
+          },
+          {
+            "name": "onaylandi",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UyariKayit"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UyariKayit"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UyariKayit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/uyarilar/{id}": {
+      "get": {
+        "tags": [
+          "Depremler"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UyariKayit"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UyariKayit"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UyariKayit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/uyarilar/{id}/onay": {
+      "post": {
+        "tags": [
+          "Depremler"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UyariKayit"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UyariKayit"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UyariKayit"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Aralik": {
+        "type": "object",
+        "properties": {
+          "alt": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ust": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ad": {
+            "type": "string",
+            "nullable": true
+          },
+          "aciklama": {
+            "type": "string",
+            "nullable": true
+          },
+          "seviye": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "oneri": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Girdi": {
+        "type": "object",
+        "properties": {
+          "buyukluk": {
+            "type": "number",
+            "format": "double"
+          },
+          "derinlikKm": {
+            "type": "number",
+            "format": "double"
+          },
+          "bolge": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Hesap": {
+        "type": "object",
+        "properties": {
+          "depremId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sonuc": {
+            "$ref": "#/components/schemas/Sonuc"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HesapKayit": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "zaman": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "veri": {
+            "$ref": "#/components/schemas/Hesap"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Inceleme": {
+        "type": "object",
+        "properties": {
+          "durum": {
+            "type": "string",
+            "nullable": true
+          },
+          "bildirilmeyenBelgeler": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "dayanak": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IncelemeKayit": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "zaman": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "veri": {
+            "$ref": "#/components/schemas/Inceleme"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Islem": {
+        "type": "object",
+        "properties": {
+          "depremId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "hesapId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "uyariId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "sonuc": {
+            "$ref": "#/components/schemas/Sonuc"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Olay": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "$ref": "#/components/schemas/Girdi"
+          },
+          "buyuklukTuru": {
+            "type": "string",
+            "nullable": true
+          },
+          "enlem": {
+            "type": "number",
+            "format": "double"
+          },
+          "boylam": {
+            "type": "number",
+            "format": "double"
+          },
+          "yer": {
+            "type": "string",
+            "nullable": true
+          },
+          "olusZamani": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "saglayici": {
+            "type": "string",
+            "nullable": true
+          },
+          "kaynakKimligi": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OlayKayit": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "zaman": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "veri": {
+            "$ref": "#/components/schemas/Olay"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sonuc": {
+        "type": "object",
+        "properties": {
+          "buyukluk": {
+            "type": "number",
+            "format": "double"
+          },
+          "derinlikKm": {
+            "type": "number",
+            "format": "double"
+          },
+          "logDerinlik": {
+            "type": "number",
+            "format": "double"
+          },
+          "katsayi": {
+            "type": "number",
+            "format": "double"
+          },
+          "bolen": {
+            "type": "number",
+            "format": "double"
+          },
+          "pay": {
+            "type": "number",
+            "format": "double"
+          },
+          "tahmin": {
+            "type": "number",
+            "format": "double"
+          },
+          "surum": {
+            "type": "string",
+            "nullable": true
+          },
+          "bolge": {
+            "type": "string",
+            "nullable": true
+          },
+          "sinif": {
+            "$ref": "#/components/schemas/Aralik"
+          },
+          "durum": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Uyari": {
+        "type": "object",
+        "properties": {
+          "depremId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "hesapId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kural": {
+            "type": "string",
+            "nullable": true
+          },
+          "seviye": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "onayZamani": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UyariKayit": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "zaman": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "veri": {
+            "$ref": "#/components/schemas/Uyari"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Yapi": {
+        "type": "object",
+        "properties": {
+          "ad": {
+            "type": "string",
+            "nullable": true
+          },
+          "konum": {
+            "type": "string",
+            "nullable": true
+          },
+          "betonSinifi": {
+            "type": "string",
+            "nullable": true
+          },
+          "yapimYili": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "katSayisi": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "tasiyiciSistem": {
+            "type": "string",
+            "nullable": true
+          },
+          "belgeler": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "yonetmelik": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "YapiKayit": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "zaman": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "veri": {
+            "$ref": "#/components/schemas/Yapi"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Api"
+    },
+    {
+      "name": "Binalar"
+    },
+    {
+      "name": "Depremler"
+    }
+  ]
+}
