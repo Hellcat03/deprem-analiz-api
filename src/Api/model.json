@@ -1,0 +1,45 @@
+{
+  "Bolgeler": [
+    {
+      "Kod": "TR",
+      "Katsayi": 0.57,
+      "Bolen": 0.5,
+      "Surum": "proje-tr-1",
+      "UyariEsigi": 2,
+      "Siniflar": [
+        {
+          "Alt": null,
+          "Ust": 4,
+          "Ad": "Proje eşiği altında",
+          "Seviye": 0,
+          "Oneri": "Kaydı sakla",
+          "Aciklama": "Doğrulanmamış proje sınıfı"
+        },
+        {
+          "Alt": 4,
+          "Ust": 6,
+          "Ad": "Hafif–Orta",
+          "Seviye": 1,
+          "Oneri": "Tahmini göster",
+          "Aciklama": "Doğrulanmamış proje sınıfı"
+        },
+        {
+          "Alt": 6,
+          "Ust": 8,
+          "Ad": "Güçlü–Çok Güçlü",
+          "Seviye": 2,
+          "Oneri": "Akademik incelemeye al",
+          "Aciklama": "Doğrulanmamış proje sınıfı"
+        },
+        {
+          "Alt": 8,
+          "Ust": null,
+          "Ad": "Yıkıcı",
+          "Seviye": 3,
+          "Oneri": "Öncelikli akademik incelemeye al",
+          "Aciklama": "Doğrulanmamış proje sınıfı"
+        }
+      ]
+    }
+  ]
+}
