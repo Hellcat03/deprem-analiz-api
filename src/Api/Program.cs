@@ -22,12 +22,15 @@ b.Services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions.RespectR
     .ConfigureApiBehaviorOptions(o => o.InvalidModelStateResponseFactory = context => new BadRequestObjectResult(
         new ProblemDetails { Status = 400, Title = "İstek biçimi veya zorunlu alanlar geçersiz." }));
 b.Services.AddEndpointsApiExplorer();
-b.Services.AddSwaggerGen(o => o.SwaggerDoc("v1", new()
+b.Services.AddSwaggerGen(o =>
 {
-    Title = "Deprem Analiz API",
-    Version = "v1",
-    Description = "Akademik deneysel model. Korunan işlemler güvenilir sunucudan X-Yonetim-Anahtari başlığı ile çağrılır."
-}));
+    o.AddSecurityDefinition("Yonetim", new Microsoft.OpenApi.OpenApiSecurityScheme { Type = Microsoft.OpenApi.SecuritySchemeType.ApiKey, In = Microsoft.OpenApi.ParameterLocation.Header, Name = "X-Yonetim-Anahtari", Description = "Güvenilir yönetim istemcisi" }); o.OperationFilter<YonetimSozlesmesi>(); o.SwaggerDoc("v1", new()
+    {
+        Title = "Deprem Analiz API",
+        Version = "v1",
+        Description = "Akademik deneysel model. Korunan işlemler güvenilir sunucudan X-Yonetim-Anahtari başlığı ile çağrılır."
+    });
+});
 b.Services.AddDbContext<Veritabani>(o => o.UseSqlServer(b.Configuration.GetConnectionString("Deprem")
     ?? throw new InvalidOperationException("ConnectionStrings__Deprem ayarlanmalıdır.")));
 using var model = File.OpenRead(Path.Combine(b.Environment.ContentRootPath, b.Configuration["ModelDosyasi"] ?? "model.json"));

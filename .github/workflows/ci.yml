@@ -15,3 +15,17 @@ jobs:
       - run: dotnet build -c Release --no-restore
       - run: dotnet test -c Release --no-build
 
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: SQL Server ve API konteynerlerini doğrula
+        shell: bash
+        run: |
+          export SQL_PAROLA="Aa1$(openssl rand -hex 24)"
+          export YONETIM_ANAHTARI="$(openssl rand -hex 32)"
+          trap 'docker compose down -v' EXIT
+          docker compose up --build -d
+          curl --retry 12 --retry-all-errors --retry-delay 2 -fsS http://127.0.0.1:5196/saglik
+          curl -fsS -H 'Content-Type: application/json' -d '{"buyukluk":6,"derinlikKm":10,"bolge":"TR"}' http://127.0.0.1:5196/api/v1/hesaplamalar/onizleme | jq -e '.tahmin == 8.86'

@@ -14,7 +14,7 @@ public class DepremlerController(Veritabani db, Katalog katalog, OlayKontrol kon
     public Sonuc Onizleme(Girdi g) => katalog.Hesapla(g);
 
     [HttpGet("bolgeler")]
-    public IEnumerable<object> Bolgeler() => katalog.Bolgeler.Select(b => new { b.Kod, b.Surum, b.Katsayi, b.Bolen, b.UyariEsigi, durum = Model.Durum });
+    public IEnumerable<BolgeBilgisi> Bolgeler() => katalog.Bolgeler.Select(b => new BolgeBilgisi(b.Kod, b.Surum, b.Katsayi, b.Bolen, b.UyariEsigi, Model.Durum));
     [HttpGet("bolgeler/{kod}/siniflar")]
     public IEnumerable<Aralik> Siniflar(string kod) => katalog.Bul(kod).Siniflar;
 
@@ -33,7 +33,7 @@ public class DepremlerController(Veritabani db, Katalog katalog, OlayKontrol kon
     public async Task<ActionResult<Kayit<Olay>>> Oku(Guid id, CancellationToken ct) =>
         await db.Depremler.FindAsync([id], ct) is { } d ? d.Oku() : NotFound();
 
-    [HttpPost("depremler"), Yonetim]
+    [HttpPost("depremler"), Yonetim, ProducesResponseType<Islem>(201)]
     public async Task<ActionResult<Islem>> Ekle(Olay o, CancellationToken ct)
     {
         var sonuc = await Yaz(null, o, ct);

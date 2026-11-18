@@ -52,8 +52,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Yönetim yetkisi gerekiyor."
           }
-        }
+        },
+        "security": [
+          {
+            "Yonetim": [ ]
+          }
+        ]
       }
     },
     "/api/v1/binalar/{id}": {
@@ -92,8 +100,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Yönetim yetkisi gerekiyor."
           }
-        }
+        },
+        "security": [
+          {
+            "Yonetim": [ ]
+          }
+        ]
       }
     },
     "/api/v1/binalar": {
@@ -121,8 +137,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "text/plain": {
                 "schema": {
@@ -140,8 +156,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Yönetim yetkisi gerekiyor."
           }
-        }
+        },
+        "security": [
+          {
+            "Yonetim": [ ]
+          }
+        ]
       }
     },
     "/api/v1/binalar/{id}/degerlendirmeler": {
@@ -161,8 +185,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "text/plain": {
                 "schema": {
@@ -180,8 +204,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Yönetim yetkisi gerekiyor."
           }
-        }
+        },
+        "security": [
+          {
+            "Yonetim": [ ]
+          }
+        ]
       }
     },
     "/api/v1/binalar/{id}/degerlendirmeler/{incelemeId}": {
@@ -229,8 +261,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Yönetim yetkisi gerekiyor."
           }
-        }
+        },
+        "security": [
+          {
+            "Yonetim": [ ]
+          }
+        ]
       }
     },
     "/api/v1/hesaplamalar/onizleme": {
@@ -293,19 +333,25 @@
               "text/plain": {
                 "schema": {
                   "type": "array",
-                  "items": { }
+                  "items": {
+                    "$ref": "#/components/schemas/BolgeBilgisi"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { }
+                  "items": {
+                    "$ref": "#/components/schemas/BolgeBilgisi"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
                   "type": "array",
-                  "items": { }
+                  "items": {
+                    "$ref": "#/components/schemas/BolgeBilgisi"
+                  }
                 }
               }
             }
@@ -457,8 +503,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "text/plain": {
                 "schema": {
@@ -476,8 +522,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Yönetim yetkisi gerekiyor."
           }
-        }
+        },
+        "security": [
+          {
+            "Yonetim": [ ]
+          }
+        ]
       }
     },
     "/api/v1/depremler/{id}": {
@@ -573,8 +627,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Yönetim yetkisi gerekiyor."
           }
-        }
+        },
+        "security": [
+          {
+            "Yonetim": [ ]
+          }
+        ]
       }
     },
     "/api/v1/hesaplamalar/{id}": {
@@ -825,8 +887,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Yönetim yetkisi gerekiyor."
           }
-        }
+        },
+        "security": [
+          {
+            "Yonetim": [ ]
+          }
+        ]
       }
     }
   },
@@ -858,6 +928,37 @@
             "format": "int32"
           },
           "oneri": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BolgeBilgisi": {
+        "type": "object",
+        "properties": {
+          "kod": {
+            "type": "string",
+            "nullable": true
+          },
+          "surum": {
+            "type": "string",
+            "nullable": true
+          },
+          "katsayi": {
+            "type": "number",
+            "format": "double"
+          },
+          "bolen": {
+            "type": "number",
+            "format": "double"
+          },
+          "uyariEsigi": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "durum": {
             "type": "string",
             "nullable": true
           }
@@ -1178,6 +1279,14 @@
           }
         },
         "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Yonetim": {
+        "type": "apiKey",
+        "description": "Güvenilir yönetim istemcisi",
+        "name": "X-Yonetim-Anahtari",
+        "in": "header"
       }
     }
   },

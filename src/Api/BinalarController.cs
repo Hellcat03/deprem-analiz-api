@@ -11,7 +11,7 @@ public class BinalarController(Veritabani db, YapiKontrol kontrol) : ControllerB
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<Kayit<Yapi>>> Oku(Guid id, CancellationToken ct) =>
         await db.Binalar.FindAsync([id], ct) is { } b ? b.Oku() : NotFound();
-    [HttpPost]
+    [HttpPost, ProducesResponseType<Kayit<Yapi>>(201)]
     public async Task<ActionResult<Kayit<Yapi>>> Ekle(Yapi y, CancellationToken ct)
     {
         await kontrol.ValidateAndThrowAsync(y, ct);
@@ -19,7 +19,7 @@ public class BinalarController(Veritabani db, YapiKontrol kontrol) : ControllerB
         db.Binalar.Add(b); db.Kaydet(b.Id, "Bina envanteri kaydedildi"); await db.SaveChangesAsync(ct);
         return CreatedAtAction(nameof(Oku), new { id = b.Id }, b.Oku());
     }
-    [HttpPost("{id:guid}/degerlendirmeler")]
+    [HttpPost("{id:guid}/degerlendirmeler"), ProducesResponseType<Kayit<Inceleme>>(201)]
     public async Task<ActionResult<Kayit<Inceleme>>> Degerlendir(Guid id, CancellationToken ct)
     {
         if (await db.Binalar.FindAsync([id], ct) is not { } b) return NotFound();

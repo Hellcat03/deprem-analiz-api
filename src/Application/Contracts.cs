@@ -27,3 +27,5 @@ public interface IOlaySaglayici
     string Ad { get; }
     IAsyncEnumerable<Olay> Oku(DateTimeOffset baslangic, CancellationToken iptal);
 }
+
+public record BolgeBilgisi(string Kod, string Surum, double Katsayi, double Bolen, int? UyariEsigi, string Durum);
